@@ -35,6 +35,7 @@ public abstract class Square {
         return name == square.name;
     }
 
+
     @Override
     public int hashCode() {
         return Objects.hash(name);

@@ -7,6 +7,8 @@ import com.company.jproject.Square.PlayableSquare;
 import com.company.jproject.Square.Square;
 import com.company.jproject.Utils.Location;
 import com.company.jproject.Utils.StateCopy;
+import com.sun.security.jgss.GSSUtil;
+
 import java.util.*;
 import java.util.List;
 
@@ -57,18 +59,18 @@ public class State {
         Queue<PlayableSquare> playersToMove = newState.getInOrderMovablePlayers(direction);
         while(!playersToMove.isEmpty()) {
             PlayableSquare player = playersToMove.poll();
-            moveOnePlayer(direction, player, newState);
+            newState.moveOnePlayer(direction, player);
         }
         return newState;
     }
 
-    private void moveOnePlayer(MoveDirection direction, PlayableSquare player, State state){
+    private void moveOnePlayer(MoveDirection direction, PlayableSquare player){
         Location playerLoc = player.getLocation();
-        while (!player.hasReachGoal() && state.checkPlayerMove(direction, player)) {
-            state.board[playerLoc.getX()][playerLoc.getY()] = player.getStandOnSquare();
+        while (!player.hasReachGoal() && checkPlayerMove(direction, player)) {
+            board[playerLoc.getX()][playerLoc.getY()] = player.getStandOnSquare();
             player.move(direction);
-            Square movedSquare = state.board[playerLoc.getX()][playerLoc.getY()];
-            state.board[playerLoc.getX()][playerLoc.getY()] = movedSquare.whenPlayerCollideWith(player, state);
+            Square movedSquare = board[playerLoc.getX()][playerLoc.getY()];
+            board[playerLoc.getX()][playerLoc.getY()] = movedSquare.whenPlayerCollideWith(player, this);
         }
     }
 

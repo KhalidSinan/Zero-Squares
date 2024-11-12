@@ -1,7 +1,12 @@
 package com.company.jproject.Game;
 
+import com.company.jproject.Algorithms.Solution;
+import com.company.jproject.Algorithms.Solver;
+import com.company.jproject.Square.Square;
+import com.company.jproject.Utils.LevelConverter;
 import com.company.jproject.Utils.LevelExitException;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class Game {
@@ -38,6 +43,17 @@ public class Game {
             }
         }
         setCompleted();
+    }
+
+    public ArrayList<Solution> solve(Solver solver){
+        ArrayList<Solution> solutions = new ArrayList<>();
+        for (Level level : levels) {
+            Square[][] levelBoard = LevelConverter.convertLevelToSquareBoard(level.getLevel());
+            State initialState = new State(levelBoard);
+            Solution solution = solver.solve(initialState);
+            solutions.add(solution);
+        }
+        return solutions;
     }
 
 

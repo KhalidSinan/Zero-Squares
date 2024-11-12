@@ -3,6 +3,7 @@ package com.company.jproject.Game;
 import com.company.jproject.ConsoleColors;
 import com.company.jproject.MoveDirection.MoveDirection;
 import com.company.jproject.Square.Square;
+import com.company.jproject.Utils.LevelConverter;
 import com.company.jproject.Utils.LevelExitException;
 import com.company.jproject.Utils.LevelReader;
 import com.company.jproject.Utils.LevelResetException;
@@ -25,13 +26,13 @@ public class Level {
 
     public void start() throws LevelExitException {
         printLevelName();
-        Square[][] levelBoard = convertLevelToSquareBoard();
+        Square[][] levelBoard = LevelConverter.convertLevelToSquareBoard(level);
         while(!isCompleted()){
             try {
                 play(levelBoard);
             }catch (LevelResetException ex){
                 System.out.println(ex.getMessage());
-                levelBoard = convertLevelToSquareBoard();
+                levelBoard = LevelConverter.convertLevelToSquareBoard(level);
             }
         }
     }
@@ -55,16 +56,7 @@ public class Level {
         setCompleted();
     }
 
-    public Square[][] convertLevelToSquareBoard() {
-        Square[][] squares = new Square[level.length][level[0].toCharArray().length];
-        for (int i = 0; i < level.length; i++) {
-            char[] row = level[i].toCharArray();
-            for (int j = 0; j < row.length; j++) {
-                squares[i][j] = Square.getSquareByChar(row[j]);
-            }
-        }
-        return squares;
-    }
+
 
     public void printLevelName() {
         System.out.println(ConsoleColors.RED + "======= Level "+ levelNum + " =======" + ConsoleColors.RESET + "\n");
@@ -92,7 +84,7 @@ public class Level {
 
     @Override
     public String toString() {
-        Square[][] board = convertLevelToSquareBoard();
+        Square[][] board = LevelConverter.convertLevelToSquareBoard(level);
         StringBuilder result = new StringBuilder();
         for (Square[] row: board) {
             for (Square square: row) {

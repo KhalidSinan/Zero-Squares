@@ -1,5 +1,7 @@
 package com.company.jproject.Utils;
 
+import java.util.Objects;
+
 public class Location {
     private int x;
     private int y;
@@ -22,6 +24,14 @@ public class Location {
         if(firstLoc == null || secondLoc == null) return false;
         return firstLoc.x == secondLoc.x && firstLoc.y == secondLoc.y;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Location location)) return false;
+        return x == location.x && y == location.y;
+    }
+
 
     public int getX() {
         return x;
