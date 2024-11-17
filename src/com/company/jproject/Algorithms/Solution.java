@@ -3,16 +3,17 @@ package com.company.jproject.Algorithms;
 import com.company.jproject.Game.State;
 
 import java.util.ArrayList;
-import java.util.Map;
 
 public class Solution {
 
+    private final int levelNum;
     private final ArrayList<Node> path;
     private final ArrayList<State> visited;
     private final int pathLength;
     private final int visitedLength;
 
-    public Solution(ArrayList<Node> path, ArrayList<State> visited){
+    public Solution(int levelNum, ArrayList<Node> path, ArrayList<State> visited){
+        this.levelNum = levelNum;
         this.path = path;
         this.visited = visited;
         this.pathLength = path.size();
@@ -33,6 +34,10 @@ public class Solution {
 
     public int getVisitedLength() {
         return visitedLength;
+    }
+
+    public int getLevelNum() {
+        return levelNum;
     }
 
     @Override
