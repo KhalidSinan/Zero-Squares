@@ -61,7 +61,7 @@ public class SolversComparator {
         }
         TablePrinter printer = new TablePrinter();
 
-        System.out.println(ConsoleColors.RED + "========== Compare By Path Length ==========" + ConsoleColors.RESET);
+        System.out.println(ConsoleColors.RED + "========== Compare By Visited Length ==========" + ConsoleColors.RESET);
         printer.printTable(headers.toArray(new String[0]), data);
     }
 }
