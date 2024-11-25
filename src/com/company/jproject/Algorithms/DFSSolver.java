@@ -2,8 +2,7 @@ package com.company.jproject.Algorithms;
 
 import com.company.jproject.Game.Level;
 import com.company.jproject.Game.State;
-import com.company.jproject.Square.Square;
-import com.company.jproject.Utils.LevelConverter;
+import com.company.jproject.Utils.SolutionPath;
 
 import java.util.*;
 
@@ -15,8 +14,7 @@ public class DFSSolver extends Solver{
 
     @Override
     public Solution solve(Level level) {
-        Square[][] levelBoard = LevelConverter.convertLevelToSquareBoard(level.getLevel());
-        State initialState = new State(levelBoard);
+        State initialState = getInitialStateFromLevel(level);
         Stack<Node> stack = new Stack<>();
         ArrayList<State> visited = new ArrayList<>();
         stack.add(new Node(initialState));

@@ -1,7 +1,7 @@
 package com.company.jproject.Game;
 
 import com.company.jproject.Algorithms.Solution;
-import com.company.jproject.Algorithms.SolverSolutions;
+import com.company.jproject.Utils.SolverSolutions;
 import com.company.jproject.Algorithms.Solver;
 import com.company.jproject.Utils.LevelExitException;
 

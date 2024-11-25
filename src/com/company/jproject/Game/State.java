@@ -7,7 +7,6 @@ import com.company.jproject.Square.PlayableSquare;
 import com.company.jproject.Square.Square;
 import com.company.jproject.Utils.Location;
 import com.company.jproject.Utils.StateCopy;
-import com.sun.security.jgss.GSSUtil;
 
 import java.util.*;
 import java.util.List;
@@ -18,12 +17,14 @@ public class State {
     private ArrayList<PlayableSquare> players;
     private Map<Character, Location> goals;
     private boolean isFinalState;
+    private MoveDirection previousMove;
 
     public State(Square[][] board) {
         this.board = board;
         this.players = getAllPlayers();
         this.goals = getAllGoals();
         this.isFinalState = false;
+        this.previousMove = null;
     }
 
     public State(Square[][] board, ArrayList<PlayableSquare> players, Map<Character, Location> goals){
@@ -37,7 +38,8 @@ public class State {
        this(
                StateCopy.copyBoard(state.board),
                StateCopy.copyPlayers(state.players),
-               StateCopy.copyGoal(state.goals));
+               StateCopy.copyGoal(state.goals)
+       );
     }
 
     public ArrayList<State> nextStates(){
@@ -56,6 +58,7 @@ public class State {
 
     public State move(MoveDirection direction) {
         State newState = new State(this);
+        newState.setPreviousMove(direction);
         Queue<PlayableSquare> playersToMove = newState.getInOrderMovablePlayers(direction);
         while(!playersToMove.isEmpty()) {
             PlayableSquare player = playersToMove.poll();
@@ -158,6 +161,14 @@ public class State {
 
     public void setBoard(Square[][] board) {
         this.board = board;
+    }
+
+    public MoveDirection getPreviousMove() {
+        return previousMove;
+    }
+
+    public void setPreviousMove(MoveDirection previousMove) {
+        this.previousMove = previousMove;
     }
 
     public boolean isFinalState() {

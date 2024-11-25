@@ -2,8 +2,7 @@ package com.company.jproject.Algorithms;
 
 import com.company.jproject.Game.Level;
 import com.company.jproject.Game.State;
-import com.company.jproject.Square.Square;
-import com.company.jproject.Utils.LevelConverter;
+import com.company.jproject.Utils.SolutionPath;
 
 import java.util.*;
 

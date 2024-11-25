@@ -36,4 +36,12 @@ public interface MoveDirection {
         directionName.append(ConsoleColors.RESET).append("\n");
         return directionName.toString();
     }
+
+    static char getCharByMoveDirection(MoveDirection direction){
+        if(direction instanceof UpMoveDirection) return 'u';
+        else if(direction instanceof RightMoveDirection) return 'r';
+        else if(direction instanceof DownMoveDirection) return 'd';
+        else return 'l';
+    }
+
 }
