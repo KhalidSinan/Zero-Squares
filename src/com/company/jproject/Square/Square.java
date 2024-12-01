@@ -12,6 +12,7 @@ public abstract class Square {
     }
 
     public abstract Square copy();
+
     public abstract Square whenPlayerCollideWith(PlayableSquare player, State state);
 
     public static Square getSquareByChar(char type){

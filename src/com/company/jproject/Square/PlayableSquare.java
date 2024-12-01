@@ -6,6 +6,7 @@ import com.company.jproject.MoveDirection.MoveDirection;
 import com.company.jproject.Game.State;
 
 import java.awt.*;
+import java.util.Objects;
 
 public class PlayableSquare extends Square{
 
@@ -76,6 +77,19 @@ public class PlayableSquare extends Square{
 
     public void setHasReachGoal(boolean hasReachGoal) {
         this.hasReachGoal = hasReachGoal;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof PlayableSquare that)) return false;
+        if (!super.equals(o)) return false;
+        return hasReachGoal == that.hasReachGoal && Objects.equals(location, that.location) && Objects.equals(standOnSquare, that.standOnSquare);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), location, standOnSquare, hasReachGoal);
     }
 
     @Override

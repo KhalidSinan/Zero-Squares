@@ -17,14 +17,14 @@ public class State {
     private ArrayList<PlayableSquare> players;
     private Map<Character, Location> goals;
     private boolean isFinalState;
-    private MoveDirection previousMove;
+    private MoveDirection lastMoveDirection;
 
     public State(Square[][] board) {
         this.board = board;
         this.players = getAllPlayers();
         this.goals = getAllGoals();
         this.isFinalState = false;
-        this.previousMove = null;
+        this.lastMoveDirection = null;
     }
 
     public State(Square[][] board, ArrayList<PlayableSquare> players, Map<Character, Location> goals){
@@ -58,7 +58,7 @@ public class State {
 
     public State move(MoveDirection direction) {
         State newState = new State(this);
-        newState.setPreviousMove(direction);
+        newState.setLastMoveDirection(direction);
         Queue<PlayableSquare> playersToMove = newState.getInOrderMovablePlayers(direction);
         while(!playersToMove.isEmpty()) {
             PlayableSquare player = playersToMove.poll();
@@ -163,12 +163,12 @@ public class State {
         this.board = board;
     }
 
-    public MoveDirection getPreviousMove() {
-        return previousMove;
+    public MoveDirection getLastMoveDirection() {
+        return lastMoveDirection;
     }
 
-    public void setPreviousMove(MoveDirection previousMove) {
-        this.previousMove = previousMove;
+    public void setLastMoveDirection(MoveDirection lastMoveDirection) {
+        this.lastMoveDirection = lastMoveDirection;
     }
 
     public boolean isFinalState() {

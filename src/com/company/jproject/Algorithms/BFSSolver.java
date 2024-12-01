@@ -21,7 +21,6 @@ public class BFSSolver extends Solver{
         while(!queue.isEmpty()){
             Node currNode = queue.poll();
             if(visited.contains(currNode.getState())) continue;
-            visited.add(currNode.getState());
             if(currNode.isFinal()){
                 queue.clear();
                 ArrayList<Node> path = SolutionPath.getSolutionPath(currNode);
@@ -30,6 +29,7 @@ public class BFSSolver extends Solver{
             for (State nextState: currNode.getState().nextStates()) {
                 if(!visited.contains(nextState)){
                     queue.add(new Node(nextState, currNode));
+                    visited.add(currNode.getState());
                 }
             }
         }

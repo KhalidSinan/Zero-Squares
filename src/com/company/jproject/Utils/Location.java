@@ -25,6 +25,7 @@ public class Location {
         return firstLoc.x == secondLoc.x && firstLoc.y == secondLoc.y;
     }
 
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

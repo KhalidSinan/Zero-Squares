@@ -3,11 +3,9 @@ package com.company.jproject.Algorithms;
 import com.company.jproject.Game.Level;
 import com.company.jproject.Game.State;
 import com.company.jproject.Utils.SolutionPath;
-
-import java.sql.Array;
 import java.util.ArrayList;
 
-public class RDFSSolver extends Solver{
+public class RDFSSolver extends Solver {
 
     public RDFSSolver() {
         super("Recursion DFS");
@@ -19,6 +17,7 @@ public class RDFSSolver extends Solver{
         Node initialNode = new Node(initialState);
         ArrayList<State> visited = new ArrayList<>();
         Node goalNode = solveHelper(initialNode, visited);
+        if(goalNode == null) return null;
         ArrayList<Node> path = SolutionPath.getSolutionPath(goalNode);
         return new Solution(level.getLevelNum(), path, visited);
     }

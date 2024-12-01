@@ -2,18 +2,15 @@ package com.company.jproject.Algorithms;
 
 import com.company.jproject.Game.Level;
 import com.company.jproject.Game.State;
-import com.company.jproject.MoveDirection.*;
-import com.company.jproject.Square.PlayableSquare;
-import com.company.jproject.Utils.Location;
+import com.company.jproject.MoveDirection.MoveDirection;
 import com.company.jproject.Utils.SolutionPath;
 
 import java.util.*;
 
-public class UCSSolver extends Solver{
+public class AStarSolver extends HeuristicSolver{
 
-
-    public UCSSolver() {
-        super("UCS");
+    public AStarSolver() {
+        super("A*");
     }
 
     static Map<Character, Integer> movesCost = new HashMap<>();
@@ -55,22 +52,6 @@ public class UCSSolver extends Solver{
     private int getStaticMoveCost(State state){
         MoveDirection lastMoveDirection = state.getLastMoveDirection();
         char direction = MoveDirection.getCharByMoveDirection(lastMoveDirection);
-        return movesCost.get(direction);
+        return movesCost.get(direction) + heuristicFunction(state);
     }
-
-    private int getMoveCost(State source, State destination){
-        int moveCost = 0;
-        ArrayList<PlayableSquare> sourcePlayers = source.getPlayers();
-        ArrayList<PlayableSquare> destinationPlayers = destination.getPlayers();
-        for (PlayableSquare destPlayer : destinationPlayers) {
-            int playerPosition = sourcePlayers.indexOf(destPlayer);
-            if(playerPosition == -1) continue;
-            Location fromLocation = sourcePlayers.get(playerPosition).getLocation();
-            Location toLocation = destPlayer.getLocation();
-            moveCost += Math.abs(fromLocation.getY() - toLocation.getY());
-            moveCost += Math.abs(fromLocation.getX() - toLocation.getX());
-        }
-        return moveCost;
-    }
-
 }
