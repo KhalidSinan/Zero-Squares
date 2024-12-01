@@ -17,9 +17,9 @@ public class AStarSolver extends HeuristicSolver{
 
     static {
         movesCost.put('u', 1);
-        movesCost.put('r', 2);
-        movesCost.put('d', 3);
-        movesCost.put('l', 4);
+        movesCost.put('r', 1);
+        movesCost.put('d', 1);
+        movesCost.put('l', 1);
     }
 
     @Override

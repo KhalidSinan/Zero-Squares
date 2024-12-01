@@ -12,6 +12,14 @@ public class Solution {
     private final int pathLength;
     private final int visitedLength;
 
+    public Solution(int levelNum, ArrayList<Node> path){
+        this.levelNum = levelNum;
+        this.path = path;
+        this.pathLength = path.size();
+        this.visited = null;
+        this.visitedLength = 0;
+    }
+
     public Solution(int levelNum, ArrayList<Node> path, ArrayList<State> visited){
         this.levelNum = levelNum;
         this.path = path;
