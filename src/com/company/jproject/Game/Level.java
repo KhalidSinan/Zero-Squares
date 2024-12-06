@@ -16,7 +16,7 @@ public class Level {
     private final String[] level;
     private ArrayList<State> steps;
     private boolean isCompleted;
-    public static final int allLevelsNum = 15;
+    public static final int allLevelsNum = 30;
 
     public Level(int levelNum){
         this.levelNum = levelNum;

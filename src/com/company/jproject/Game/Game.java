@@ -1,6 +1,7 @@
 package com.company.jproject.Game;
 
 import com.company.jproject.Algorithms.Solution;
+import com.company.jproject.Main;
 import com.company.jproject.Utils.SolverSolutions;
 import com.company.jproject.Algorithms.Solver;
 import com.company.jproject.Utils.LevelExitException;
@@ -14,6 +15,14 @@ public class Game {
 
     public Game(){
         this.levels = getAllLevels();
+        this.isCompleted = false;
+    }
+
+    public Game(boolean specific, Integer ...levelNums){
+        this.levels = new ArrayList<>();
+        for (Integer levelNum : levelNums) {
+            this.levels.add(new Level(levelNum));
+        }
         this.isCompleted = false;
     }
 
@@ -46,7 +55,7 @@ public class Game {
     public SolverSolutions solve(Solver solver) {
         SolverSolutions solverSolutions = new SolverSolutions(solver);
         for (Level level : levels) {
-            Solution solution = solver.solve(level);
+            Solution solution = solver.startSolving(level);
             solverSolutions.addSolution(solution);
         }
         return solverSolutions;

@@ -22,5 +22,16 @@ public abstract class Solver {
         return new State(levelBoard);
     }
 
-    public abstract Solution solve(Level level);
+    protected abstract Solution solve(Level level);
+
+    public Solution startSolving(Level level){
+        long startTime = System.nanoTime();
+        long initialMemoryUsage = Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory();
+        Solution solution = solve(level);
+        solution.setTime((System.nanoTime() - startTime) / 1_000_000);
+        long finalMemoryUsage = Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory();
+        long memoryUsage = Math.abs(finalMemoryUsage - initialMemoryUsage) / 1000;
+        solution.setMemory(memoryUsage);
+        return solution;
+    }
 }

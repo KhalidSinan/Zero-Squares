@@ -29,7 +29,7 @@ public class UCSSolver extends Solver{
     public Solution solve(Level level) {
         State initialState = getInitialStateFromLevel(level);
         Queue<Node> queue = new PriorityQueue<>();
-        ArrayList<State> visited = new ArrayList<>();
+        Set<State> visited = new HashSet<>();
         queue.add(new Node(initialState));
         while(!queue.isEmpty()){
             Node current = queue.poll();
@@ -41,7 +41,8 @@ public class UCSSolver extends Solver{
                 return new Solution(level.getLevelNum(), path, visited);
             }
             for (State nextState: current.getState().nextStates()) {
-                int moveCost = getStaticMoveCost(nextState);
+//                int moveCost = getStaticMoveCost(nextState);
+                int moveCost = nextState.getTotalMoves();
                 Node nextNode = new Node(nextState, current, current.getDepth() + moveCost);
                 if(!visited.contains(nextState) || current.getDepth() + moveCost < nextNode.getDepth()){
                     nextNode.setDepth(current.getDepth() + moveCost);
@@ -56,21 +57,6 @@ public class UCSSolver extends Solver{
         MoveDirection lastMoveDirection = state.getLastMoveDirection();
         char direction = MoveDirection.getCharByMoveDirection(lastMoveDirection);
         return movesCost.get(direction);
-    }
-
-    private int getMoveCost(State source, State destination){
-        int moveCost = 0;
-        ArrayList<PlayableSquare> sourcePlayers = source.getPlayers();
-        ArrayList<PlayableSquare> destinationPlayers = destination.getPlayers();
-        for (PlayableSquare destPlayer : destinationPlayers) {
-            int playerPosition = sourcePlayers.indexOf(destPlayer);
-            if(playerPosition == -1) continue;
-            Location fromLocation = sourcePlayers.get(playerPosition).getLocation();
-            Location toLocation = destPlayer.getLocation();
-            moveCost += Math.abs(fromLocation.getY() - toLocation.getY());
-            moveCost += Math.abs(fromLocation.getX() - toLocation.getX());
-        }
-        return moveCost;
     }
 
 }

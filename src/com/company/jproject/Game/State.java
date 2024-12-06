@@ -18,6 +18,7 @@ public class State {
     private Map<Character, Location> goals;
     private boolean isFinalState;
     private MoveDirection lastMoveDirection;
+    private int totalMoves;
 
     public State(Square[][] board) {
         this.board = board;
@@ -25,6 +26,7 @@ public class State {
         this.goals = getAllGoals();
         this.isFinalState = false;
         this.lastMoveDirection = null;
+        this.totalMoves = 0;
     }
 
     public State(Square[][] board, ArrayList<PlayableSquare> players, Map<Character, Location> goals){
@@ -32,6 +34,8 @@ public class State {
         this.players = players;
         this.goals = goals;
         this.isFinalState = isFinalState();
+        this.totalMoves = 0;
+        this.lastMoveDirection = null;
     }
 
     public State(State state){
@@ -72,6 +76,7 @@ public class State {
         while (!player.hasReachGoal() && checkPlayerMove(direction, player)) {
             board[playerLoc.getX()][playerLoc.getY()] = player.getStandOnSquare();
             player.move(direction);
+            totalMoves++;
             Square movedSquare = board[playerLoc.getX()][playerLoc.getY()];
             board[playerLoc.getX()][playerLoc.getY()] = movedSquare.whenPlayerCollideWith(player, this);
         }
@@ -139,6 +144,10 @@ public class State {
         return goals;
     }
 
+    public int getTotalMoves() {
+        return totalMoves;
+    }
+
     public Map<Character, Location> getGoals() {
         return goals;
     }
@@ -184,6 +193,11 @@ public class State {
         if (this == o) return true;
         if (!(o instanceof State state)) return false;
         return isFinalState == state.isFinalState && Arrays.deepEquals(board, state.board) && players.equals(state.players) && goals.equals(state.goals);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(Arrays.deepHashCode(board), Objects.hash(players), isFinalState);
     }
 
     @Override

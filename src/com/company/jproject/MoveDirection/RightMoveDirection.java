@@ -19,4 +19,6 @@ public class RightMoveDirection implements MoveDirection {
         Comparator<PlayableSquare> reverseSortHorizontal = Collections.reverseOrder(new SortHorizontal());
         players.sort(reverseSortHorizontal);
     }
+
+
 }

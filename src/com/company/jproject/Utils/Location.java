@@ -33,6 +33,10 @@ public class Location {
         return x == location.x && y == location.y;
     }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(x, y);
+    }
 
     public int getX() {
         return x;

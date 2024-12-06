@@ -22,13 +22,13 @@ public class PlayableSquare extends Square{
 
     public PlayableSquare(char player, Square standOnSquare, Location location, boolean hasReachGoal){
         super(player);
-        this.location = new Location(location);
+        this.location = location;
         this.standOnSquare = standOnSquare;
         this.hasReachGoal = hasReachGoal;
     }
 
     public PlayableSquare(PlayableSquare player){
-        this(player.getName(), player.getStandOnSquare().copy(), player.location, player.hasReachGoal());
+        this(player.getName(), player.getStandOnSquare().copy(), new Location(player.location), player.hasReachGoal());
     }
 
     @Override
@@ -89,7 +89,7 @@ public class PlayableSquare extends Square{
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), location, standOnSquare, hasReachGoal);
+        return Objects.hash(super.hashCode(), Objects.hash(location), Objects.hash(standOnSquare), hasReachGoal);
     }
 
     @Override

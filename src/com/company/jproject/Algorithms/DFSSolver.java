@@ -16,7 +16,7 @@ public class DFSSolver extends Solver{
     public Solution solve(Level level) {
         State initialState = getInitialStateFromLevel(level);
         Stack<Node> stack = new Stack<>();
-        ArrayList<State> visited = new ArrayList<>();
+        Set<State> visited = new HashSet<>();
         stack.add(new Node(initialState));
         while(!stack.isEmpty()){
             Node currNode = stack.pop();

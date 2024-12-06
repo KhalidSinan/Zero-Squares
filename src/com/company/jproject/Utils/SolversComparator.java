@@ -62,4 +62,45 @@ public class SolversComparator {
         System.out.println(ConsoleColors.RED + "========== Compare By Visited Length ==========" + ConsoleColors.RESET);
         printer.printTable(headers.toArray(new String[0]), data);
     }
+
+    public void compareByExecutionTime(){
+        ArrayList<String> headers = new ArrayList<>();
+        headers.add("Solver");
+        for (Solution solution : solversSolutions.get(0).getSolutions()) {
+            headers.add("Level " + solution.getLevelNum());
+        }
+        String[][] data = new String[solversSolutions.size()][headers.size()];
+        for(int i = 0;i< solversSolutions.size(); i++){
+            SolverSolutions solverSolutions = solversSolutions.get(i);
+            data[i][0] = solverSolutions.getSolver().getName();
+            for (int j = 1; j < headers.size(); j++){
+                data[i][j] = Long.toString(solverSolutions.getSolutions().get(j-1).getTime()) + "ms";
+            }
+
+        }
+        TablePrinter printer = new TablePrinter();
+
+        System.out.println(ConsoleColors.RED + "========== Compare By Execution Time ==========" + ConsoleColors.RESET);
+        printer.printTable(headers.toArray(new String[0]), data);
+    }
+    public void compareByMemoryUsage(){
+        ArrayList<String> headers = new ArrayList<>();
+        headers.add("Solver");
+        for (Solution solution : solversSolutions.get(0).getSolutions()) {
+            headers.add("Level " + solution.getLevelNum());
+        }
+        String[][] data = new String[solversSolutions.size()][headers.size()];
+        for(int i = 0;i< solversSolutions.size(); i++){
+            SolverSolutions solverSolutions = solversSolutions.get(i);
+            data[i][0] = solverSolutions.getSolver().getName();
+            for (int j = 1; j < headers.size(); j++){
+                data[i][j] = Long.toString(solverSolutions.getSolutions().get(j-1).getMemory());
+            }
+
+        }
+        TablePrinter printer = new TablePrinter();
+
+        System.out.println(ConsoleColors.RED + "========== Compare By Memory Usage ==========" + ConsoleColors.RESET);
+        printer.printTable(headers.toArray(new String[0]), data);
+    }
 }

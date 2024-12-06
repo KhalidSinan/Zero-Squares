@@ -16,11 +16,12 @@ public class BFSSolver extends Solver{
     public Solution solve(Level level) {
         State initialState = getInitialStateFromLevel(level);
         Queue<Node> queue = new LinkedList<>();
-        ArrayList<State> visited = new ArrayList<>();
+        Set<State> visited = new HashSet<>();
         queue.add(new Node(initialState));
+        visited.add(initialState);
         while(!queue.isEmpty()){
             Node currNode = queue.poll();
-            if(visited.contains(currNode.getState())) continue;
+//            if(visited.contains(currNode.getState())) continue;
             if(currNode.isFinal()){
                 queue.clear();
                 ArrayList<Node> path = SolutionPath.getSolutionPath(currNode);

@@ -15,7 +15,7 @@ public class StateCopy {
         Square[][] copyBoard = new Square[rows][cols];
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
-                copyBoard[i][j] = Square.getSquareByChar(board[i][j].getName());
+                copyBoard[i][j] = board[i][j].copy();
             }
         }
         return copyBoard;

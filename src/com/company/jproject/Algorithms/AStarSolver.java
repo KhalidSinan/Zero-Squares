@@ -10,23 +10,23 @@ import java.util.*;
 public class AStarSolver extends HeuristicSolver{
 
     public AStarSolver() {
-        super("A*");
+        super("A Star");
     }
 
     static Map<Character, Integer> movesCost = new HashMap<>();
 
     static {
         movesCost.put('u', 1);
-        movesCost.put('r', 1);
-        movesCost.put('d', 1);
-        movesCost.put('l', 1);
+        movesCost.put('r', 2);
+        movesCost.put('d', 3);
+        movesCost.put('l', 4);
     }
 
     @Override
     public Solution solve(Level level) {
         State initialState = getInitialStateFromLevel(level);
-        Queue<Node> queue = new PriorityQueue<>();
-        ArrayList<State> visited = new ArrayList<>();
+        Queue<Node> queue = new PriorityQueue<>(Comparator.comparingInt(HeuristicSolver::getTotalCost));
+        Set<State> visited = new HashSet<>();
         queue.add(new Node(initialState));
         while(!queue.isEmpty()){
             Node current = queue.poll();
@@ -38,9 +38,10 @@ public class AStarSolver extends HeuristicSolver{
                 return new Solution(level.getLevelNum(), path, visited);
             }
             for (State nextState: current.getState().nextStates()) {
-                int moveCost = getStaticMoveCost(nextState);
+//                int moveCost = getStaticMoveCost(nextState);
+                int moveCost = nextState.getTotalMoves();
                 Node nextNode = new Node(nextState, current, current.getDepth() + moveCost);
-                if(!visited.contains(nextState) || current.getDepth() + moveCost < nextNode.getDepth()){
+                if(!visited.contains(nextState) || HeuristicSolver.getTotalCost(current) + moveCost < HeuristicSolver.getTotalCost(nextNode)){
                     nextNode.setDepth(current.getDepth() + moveCost);
                     queue.add(nextNode);
                 }
@@ -52,6 +53,6 @@ public class AStarSolver extends HeuristicSolver{
     private int getStaticMoveCost(State state){
         MoveDirection lastMoveDirection = state.getLastMoveDirection();
         char direction = MoveDirection.getCharByMoveDirection(lastMoveDirection);
-        return movesCost.get(direction) + heuristicFunction(state);
+        return movesCost.get(direction);
     }
 }
